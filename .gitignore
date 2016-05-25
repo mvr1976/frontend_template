@@ -1,0 +1,62 @@
+# Dependency directory #
+########################
+node_modules
+
+# Bower files #
+###############
+_dev/bower
+
+# Production files #
+###############
+_build
+
+# SASS files #
+##############
+.sass-cache
+
+# PHP Storm files #
+###################
+.idea
+
+# OS generated files #
+######################
+._*
+.DS_Store
+.DS_Store?
+.Spotlight-V100
+.Trashes
+.AppleDouble
+.LSOverride
+.AppleDB
+.AppleDesktop
+.apdisk
+ehthumbs.db
+Network Trash Folder
+Temporary Items
+Thumbs.db
+
+# Logs and databases #
+######################
+*.log
+*.sql
+*.sqlite
+
+# Compiled source #
+###################
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+# Packages #
+############
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip

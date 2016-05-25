@@ -1,0 +1,27 @@
+{
+  "name": "frontend_template",
+  "description": "Template of new frontend project using nodejs, npm, gulp, bower, scss, jade",
+  "main": "gulpfile.js",
+  "authors": [
+    "Andrey Semenov"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "template",
+    "frontend",
+    "boilerplate"
+  ],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "_dev/bower",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery-dist": "^2.1.3",
+    "normalize-css": "^4.1.1"
+  }
+}
