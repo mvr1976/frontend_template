@@ -13,6 +13,9 @@ var
 	rename = require('gulp-rename'),
 	uglify = require('gulp-uglify'),
 	del = require('del'),
+  wiredep = require('wiredep').stream,
+  gulpif = require('gulp-if'),
+  useref = require('gulp-useref'),
 	spritesmith = require('gulp.spritesmith');
 
 /* --------- paths --------- */
@@ -38,8 +41,6 @@ const
 
 		bower: {
 			watch:   '_dev/bower/**',
-			cssSrc:  '_dev/bower/**/*.css',
-			jsSrc:   '_dev/bower/**/*.js',
 			cssDest: '_build/css',
 			jsDest:  '_build/js'
 		},
@@ -62,19 +63,23 @@ gulp.task('sync', function() {
 
 /* --------- jade --------- */
 
-gulp.task('jade', function() {
-	gulp.src(paths.jade.src)
+gulp.task('jade', ['clean'], function() {
+	return gulp.src(paths.jade.src)
 		.pipe(plumber())
 		.pipe(jade({
 			pretty: '\t'
 		}))
+    .pipe(wiredep())
+    .pipe(useref())
+    .pipe(gulpif('*.js', uglify()))
+    .pipe(gulpif('*.css', cleancss()))
 		.pipe(gulp.dest(paths.jade.dest))
 })
 
 /* --------- scss --------- */
 
 gulp.task('scss', function() {
-	gulp.src(paths.scss.src)
+	return gulp.src(paths.scss.src)
 		.pipe(plumber())
 		.pipe(scss({
 			outputStyle: 'expanded'
@@ -85,42 +90,28 @@ gulp.task('scss', function() {
 /* --------- js --------- */
 
 gulp.task('js', function() {
-	gulp.src(paths.js.src)
+	return gulp.src(paths.js.src)
 		.pipe(plumber())
 		.pipe(rename('main.js'))
 		.pipe(gulp.dest(paths.js.dest))
 })
 
-/* --------- bower --------- */
+/* --------- clean --------- */
 
-gulp.task('bower', function() {
-	del([paths.bower.cssDest + '/vendor.min.css', paths.bower.jsDest + '/vendor.min.js'])
-
-	var bowerCSS = gulp.src(paths.bower.cssSrc)
-									.pipe(plumber())
-									.pipe(concat('vendor.min.css'))
-									.pipe(cleancss())
-									.pipe(gulp.dest(paths.bower.cssDest))
-	
-	var bowerJS = gulp.src(paths.bower.jsSrc)
-									.pipe(plumber())
-									.pipe(uglify())
-									.pipe(rename('vendor.min.js'))
-									.pipe(gulp.dest(paths.bower.jsDest))
-
+gulp.task('clean', function() {
+	return del([paths.bower.cssDest + '/vendor.min.css', paths.bower.jsDest + '/vendor.min.js'])
 })
 
 /* --------- watch --------- */
 
 gulp.task('watch', function(){
-	gulp.watch(paths.jade.watch, ['jade']);
-	gulp.watch(paths.scss.watch, ['scss']);
-	gulp.watch(paths.js.watch, ['js']);
-	gulp.watch(paths.bower.watch, ['bower']);
+	gulp.watch([paths.jade.watch, paths.bower.watch], ['jade']);
+  gulp.watch(paths.scss.watch, ['scss']);
+  gulp.watch(paths.js.watch, ['js']);
 	gulp.watch(paths.browserSync.watchPaths).on('change', browserSync.reload);
 });
 
 /* --------- default --------- */
 
-gulp.task('default', ['jade', 'scss', 'js', 'bower', 'sync', 'watch']);
+gulp.task('default', ['jade', 'scss', 'js', 'sync', 'watch']);
 
