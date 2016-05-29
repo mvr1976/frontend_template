@@ -6,6 +6,7 @@ var
   browserSync = require('browser-sync').create(),
   jade = require('gulp-jade'),
   scss = require('gulp-sass'),
+  autoprefix = require('gulp-autoprefixer'),
   cleancss = require('gulp-clean-css'),
   concat = require('gulp-concat'),
   imagemin = require('gulp-imagemin'),
@@ -92,6 +93,7 @@ gulp.task('scss', function() {
     .pipe(scss({
       outputStyle: 'expanded'
     }))
+    .pipe(autoprefix({ browsers: 'last 20 version' }))
     .pipe(stripCSS())
     .pipe(gulp.dest(paths.scss.dest))
 })
