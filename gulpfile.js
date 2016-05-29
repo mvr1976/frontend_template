@@ -37,7 +37,7 @@ const
 
     img: {
       all: '_dev/img/*',
-      icons: ['_dev/img/icons/**/*.*', '!_dev/img/icons/**/*.md'],
+      icons: ['_dev/img/icons/**/*.png', '_dev/img/icons/**/*.jpg'],
       dest: '_build/img/'
     },
 
