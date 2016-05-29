@@ -37,8 +37,7 @@ const
 
     img: {
       all: '_dev/img/*',
-      iconsMisc: '_dev/img/icons/*.*',
-      iconsSocial: '_dev/img/icons/social/*.*',
+      icons: ['_dev/img/icons/**/*.*', '!_dev/img/icons/**/*.md'],
       dest: '_build/img/'
     },
 
@@ -99,14 +98,14 @@ gulp.task('scss', function() {
 
 /* ---------- sprite generator ---------- */
 
-gulp.task('spritesMisc', function() {
+gulp.task('spriteIcons', function() {
     var spriteData = 
-        gulp.src(paths.img.iconsMisc) // путь, откуда берем картинки для спрайта
+        gulp.src(paths.img.icons) // путь, откуда берем картинки для спрайта
             .pipe(spritesmith({
-                imgName: '../img/spriteMisc.png',
-                cssName: '_spriteMisc.scss',
+                imgName: 'spriteIcons.png',
+                cssName: '_spriteIcons.scss',
                 cssFormat: 'scss',
-                cssSpritesheetName: 'misc',
+                cssSpritesheetName: 'icons',
                 cssVarMap: function (sprite) {
                   sprite.name = 'icon-' + sprite.name;
                 }
@@ -115,21 +114,21 @@ gulp.task('spritesMisc', function() {
     spriteData.css.pipe(gulp.dest('_dev/scss/_misc/')); // путь, куда сохраняем стили
 });
 
-gulp.task('spritesSocial', function() {
-    var spriteData = 
-        gulp.src(paths.img.iconsSocial) // путь, откуда берем картинки для спрайта
-            .pipe(spritesmith({
-                imgName: '../img/spriteSocial.png',
-                cssName: '_spriteSocial.scss',
-                cssFormat: 'scss',
-                cssSpritesheetName: 'social',
-                cssVarMap: function (sprite) {
-                  sprite.name = 'icon-' + sprite.name;
-                }
-            }));
-    spriteData.img.pipe(gulp.dest(paths.img.dest)); // путь, куда сохраняем картинку
-    spriteData.css.pipe(gulp.dest('_dev/scss/_misc/')); // путь, куда сохраняем стили
-});
+// gulp.task('spritesSocial', function() {
+//     var spriteData = 
+//         gulp.src(paths.img.iconsSocial) // путь, откуда берем картинки для спрайта
+//             .pipe(spritesmith({
+//                 imgName: '../img/spriteSocial.png',
+//                 cssName: '_spriteSocial.scss',
+//                 cssFormat: 'scss',
+//                 cssSpritesheetName: 'social',
+//                 cssVarMap: function (sprite) {
+//                   sprite.name = 'icon-' + sprite.name;
+//                 }
+//             }));
+//     spriteData.img.pipe(gulp.dest(paths.img.dest)); // путь, куда сохраняем картинку
+//     spriteData.css.pipe(gulp.dest('_dev/scss/_misc/')); // путь, куда сохраняем стили
+// });
 
 /* ---------- image min ---------- */
 
@@ -172,13 +171,12 @@ gulp.task('watch', function(){
   gulp.watch([paths.jade.watch, paths.bower.watch], ['jade']);
   gulp.watch(paths.scss.watch, ['scss']);
   gulp.watch(paths.img.all, ['imagemin']);
-  gulp.watch(paths.img.iconsMisc, ['spritesMisc']);
-  gulp.watch(paths.img.iconsSocial, ['spritesSocial']);
+  gulp.watch(paths.img.icons, ['spriteIcons']);
   gulp.watch(paths.js.watch, ['js']);
   gulp.watch(paths.browserSync.watch).on('change', browserSync.reload);
 });
 
 /* --------- default --------- */
 
-gulp.task('default', ['jade', 'scss', 'imagemin', 'spritesMisc', 'spritesSocial', 'js', 'sync', 'watch']);
+gulp.task('default', ['jade', 'scss', 'imagemin', 'spriteIcons', 'js', 'sync', 'watch']);
 

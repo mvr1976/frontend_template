@@ -1,0 +1,1 @@
+Put here your icons to get a sprite from them

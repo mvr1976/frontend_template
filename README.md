@@ -1,4 +1,4 @@
-# Frontend template instuctions
+# Frontend template instructions
 
 ## Using frontend technologies:
 - jade
@@ -12,7 +12,7 @@
 
 ## Template installation:
 ```
-$ npm install (or npm -i)
+$ npm install (or npm i)
 $ bower install
 $ gulp
 ```
