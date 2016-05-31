@@ -12,9 +12,9 @@
     "boilerplate"
   ],
   "author": "Andrey Semenov",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/andrey-semenoff/frontend_template.git"
+  "repository" :
+  { "type" : "git",
+    "url" : "https://github.com/andrey-semenoff/frontend_template.git"
   },
   "license": "ISC",
   "devDependencies": {
