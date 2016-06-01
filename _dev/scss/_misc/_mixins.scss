@@ -1,4 +1,4 @@
-@mixin inlineblock ($valine: top) {
+@mixin inlineblock ($valine: middle) {
 	display: inline-block;
 	vertical-align: $valine;
 }
@@ -25,6 +25,12 @@
 	-webkit-box-shadow: $string;
 	-moz-box-shadow: $string;
 	box-shadow: $string;
+}
+
+@mixin opacity($opacity) {
+  opacity: $opacity;
+  $opacity-ie: $opacity * 100;
+  filter: alpha(opacity=$opacity-ie); //IE8
 }
 
 @mixin transition($transition...) {
@@ -76,3 +82,35 @@
 	margin: auto;
 	position: absolute;
 }
+
+/* ---------- font-size in rem ---------- */
+
+@mixin font-size($size) {
+  font-size: $size;
+  font-size: ($size / 16px) * 1rem;
+}
+
+/* ---------- font-face ---------- */
+
+@mixin font-face($font-family, $file-path, $font-weight: normal, $font-style: normal) {
+  @font-face {
+    font-family: $font-family;
+      src: url('#{$file-path}.eot');
+      src: url('#{$file-path}.eot?#iefix') format('embedded-opentype'),
+           url('#{$file-path}.woff') format('woff'),
+           url('#{$file-path}.ttf') format('truetype'),
+           url('#{$file-path}.svg##{$font-family}') format('svg');
+    font-weight: $font-weight;
+    font-style: $font-style;
+  }
+}
+
+/* ---------- sprites ---------- */
+
+// @each $sprite in $social-sprites {
+// 	.socials__item_#{nth($sprite, 10)} {
+// 		.socials__icon {
+// 			@include sprite($sprite)
+// 		}
+// 	}
+// }

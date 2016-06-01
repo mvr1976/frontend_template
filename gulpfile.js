@@ -177,7 +177,7 @@ function run_js() {
 };
 
 function run_fonts() {
-  gulp.src(aths.fonts.src)
+  gulp.src(paths.fonts.src)
     .pipe(gulp.dest(paths.fonts.dest))
 };
 
